@@ -1,0 +1,2 @@
+Aleh;Aleh;48690;ADMINISTRATOR
+Sancho;Sancho;48690;USER
