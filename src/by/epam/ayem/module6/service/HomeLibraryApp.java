@@ -1,8 +1,6 @@
-import java.util.Scanner;
+package by.epam.ayem.module6.service;
 
-class Client {
-
-   /* Задание 1: создать консольное приложение "Учет книг в домашней библиотеке".
+/* Задание 1: создать консольное приложение "Учет книг в домашней библиотеке".
         Общие требования к заданию:
         1) Система учитывает книги как в электронном, так и в бумажном варианте.
         2) Существующие роли: пользователь, администратор.
@@ -14,11 +12,21 @@ class Client {
         8) Каталог книг хранится в текстовом файле.
         9) Данные аутонтефикации пользователей хранятся в текстовом файле. Пароль не хранится в открытом виде.*/
 
-    void run() {
 
-        Scanner scanner = new Scanner(System.in);
-        LibraryService service = new LibraryService();
-        UserBase userBase = new UserBase();
+import by.epam.ayem.module6.model.*;
+
+import java.util.Scanner;
+
+public class HomeLibraryApp {
+
+    private static Scanner scanner = new Scanner(System.in);
+    private HomeLibraryService homeLibraryService = new HomeLibraryService();
+    private CatalogBase catalogBase = new CatalogBase();
+    private UserBase userBase = new UserBase();
+    private UserService userService = new UserService();
+
+    public void run() {
+        homeLibraryService.readWhenStart(userBase, catalogBase);
 
         System.out.println("Welcome to the library service.");
 
@@ -37,30 +45,17 @@ class Client {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter a name:");
-                    String loginName = scanner.nextLine();
-                    System.out.println("Enter an e-mail:");
-                    String email = scanner.nextLine();
-                    System.out.println("Enter a password:");
-                    String loginPassword = scanner.nextLine();
-                    if (userBase.logIn(loginName, email, loginPassword)) {
-                        service.showMenu(userBase);
+                    if (userService.logIn(userBase)) {
+                        homeLibraryService.showMenu(userBase, catalogBase);
                     }
                     break;
                 case 2:
-                    System.out.println("Enter a name:");
-                    String name = scanner.nextLine();
-                    System.out.println("Enter an e-mail:");
-                    email = scanner.nextLine();
-                    System.out.println("Enter a password:");
-                    String password = scanner.nextLine();
-                    System.out.println("Choose a role:");
-                    UserRole.showRoles();
-                    int number = scanner.nextInt();
-                    scanner.nextLine();
-                    userBase.signUp(name, email, password, number);
+                    if (userService.signUp(userBase)) {
+                        homeLibraryService.showMenu(userBase, catalogBase);
+                    }
                     break;
                 case 0:
+                    homeLibraryService.writeWhenFinish(userBase, catalogBase);
                     quit = true;
 
             }

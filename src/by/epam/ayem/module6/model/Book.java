@@ -1,3 +1,5 @@
+package by.epam.ayem.module6.model;
+
 /* Задание 1: создать консольное приложение "Учет книг в домашней библиотеке".
         Общие требования к заданию:
         1) Система учитывает книги как в электронном, так и в бумажном варианте.
@@ -10,41 +12,52 @@
         8) Каталог книг хранится в текстовом файле.
         9) Данные аутонтефикации пользователей хранятся в текстовом файле. Пароль не хранится в открытом виде.*/
 
-public class User {
+import java.io.Serializable;
+import java.util.Objects;
 
-    private String name;
-    private String email;
-    private String password;
-    private UserRole role;
+public class Book implements Serializable {
+    private final String title;
+    private BookType bookType;
+    private final String description;
 
-    public User(String name, String email, String password, UserRole role) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    public Book(String title, BookType bookType, String description) {
+        this.title = title;
+        this.bookType = bookType;
+        this.description = description;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public BookType getBookType() {
+        return bookType;
     }
 
-    public String getEmail() {
-        return email;
+    public void setBookType(BookType bookType) {
+        this.bookType = bookType;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getDescription() {
+        return description;
     }
 
-    public UserRole getRole() {
-        return role;
+    @Override
+    public String toString() {
+        return "Book: '" + title + "'. Type: " + bookType + ". Description: " + description + ".";
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(title, book.title) &&
+                bookType == book.bookType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, bookType);
     }
 }

@@ -1,3 +1,5 @@
+package by.epam.ayem.module6.model;
+
 /* Задание 1: создать консольное приложение "Учет книг в домашней библиотеке".
         Общие требования к заданию:
         1) Система учитывает книги как в электронном, так и в бумажном варианте.
@@ -10,43 +12,35 @@
         8) Каталог книг хранится в текстовом файле.
         9) Данные аутонтефикации пользователей хранятся в текстовом файле. Пароль не хранится в открытом виде.*/
 
-public class Book {
-    private String title;
-    private BookType bookType;
-    private String description;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Book(String title, BookType bookType, String description) {
+/**
+ * @author Aleh Yemelyanchyk on 9/29/2019.
+ */
+public class Catalog {
+
+    private String title;
+    private List<Book> books;
+
+    public Catalog(String title) {
         this.title = title;
-        this.bookType = bookType;
-        this.description = description;
+        this.books = new ArrayList<>();
     }
 
-    String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    BookType getBookType() {
-        return bookType;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    void setBookType(BookType bookType) {
-        this.bookType = bookType;
-    }
-
-    String getDescription() {
-        return description;
-    }
-
-    void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "Book: '" + title + "'. Book type: " + bookType + ". Description: " + description + ".";
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
